@@ -38,7 +38,7 @@ namespace TestProject1Nejra
 
             string messagePHPTravel  = PHPSearch.GooglePHP("PHPtravel");
 
-
+            Assert.AreEqual(messagePHPTravel, "passed");
         }
 
         [TestCleanup]

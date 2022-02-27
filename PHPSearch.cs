@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TestProject1Nejra
@@ -11,6 +12,7 @@ namespace TestProject1Nejra
     public class PHPSearch
     {
         private static object functions;
+        
 
         public static string GooglePHP(string word)
         {
@@ -39,12 +41,22 @@ namespace TestProject1Nejra
                 var companyBlog = Driver.Instance.FindElement(By.CssSelector("body nav .lvl-0.dropdown.headerLang div a:nth-child(1)"));
                 companyBlog.Click();
 
-                var blogSearchByName = Driver.Instance.FindElement(By.CssSelector("#select2-9a8x-container > span"));
+                var blogSearchByName = Driver.Instance.FindElement(By.CssSelector("body > section.hero > div > div > div:nth-child(2) > span"));
                 blogSearchByName.Click();
-                blogSearchByName.SendKeys("PHPTRAVELS new opportunity");
-                var phptravelsnewoportunity = Driver.Instance.FindElement(By.CssSelector("#select2-nse8-results > li > div > a > div.select2-result-repository__meta > div.select2-result-repository__title"));
+                var blogSearchByNameField = Driver.Instance.FindElement(By.CssSelector("body > span > span > span.select2-search.select2-search--dropdown > input"));
+                blogSearchByNameField.SendKeys("PHPTRAVELS new opportunity");
+             
+                Thread.Sleep(500);
 
-                phptravelsnewoportunity.Click();
+                var phpTravelsCompanyBlogFieldResult = Driver.Instance.FindElement(By.XPath("/html/body/span/span/span[2]/ul/li/div/a"));
+                phpTravelsCompanyBlogFieldResult.Click();
+                Thread.Sleep(500);
+
+                Functions.TakeScreenShot();
+
+                message = "passed";
+
+               
             }
             catch (Exception e)
             {
