@@ -44,9 +44,9 @@ namespace TestProject1Nejra
             string kontakt = GoogleSearch.Contacts("Kontakti");
             string pretraziKurseve = GoogleSearch.PretraziKurseve("PretraziKurseve");
             if (!pretraga.Contains("ERROR") && (!predavaci.Contains("ERROR")))
-                    {
+            { 
                 subject = "Passed!!!" + subject;
-                            }
+            }
             else
             {
                 subject = "failed!!!" + subject;
@@ -57,8 +57,8 @@ namespace TestProject1Nejra
             Functions.WriteInto(filePath, "Test ended" + DateTime.Now.ToString("(dd_MMMM_hh_mm_ss_tt)"));
 
             //Functions.SendEmailAttachment(subject, body);
-           Assert.IsTrue(subject.Contains("passed"));
-            Assert.IsFalse(subject.Contains("failed"));
+            Assert.IsTrue(subject.Contains("Passed!!!"));
+            Assert.IsFalse(subject.Contains("failed!!!"));
 
             Functions.WriteInto(filePath, "Test ended" + DateTime.Now.ToString());
 
