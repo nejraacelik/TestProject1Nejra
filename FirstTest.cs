@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QATest.Setup;
 using System;
 
 namespace TestProject1Nejra
@@ -11,26 +12,29 @@ namespace TestProject1Nejra
         private TestArguments parameters;
         private object subject;
         private object body;
+        private string filePath = @"C:\Test Configuration\LogFile.txt";
 
         [TestInitialize]
 
         public void Init()
         {
+            var downloadDirectory = @"C:\Files";
+            var driverDirectory = @"C:\Drivers\";
+            var configFilePath = @"C://Test Configuration\config.xml";
 
-            Functions.WriteInto("Start of init");
-            parameters = new TestArguments();
-            int a = int.Parse(parameters.browser);
-            Driver.Initiliaze(a);
-            Functions.WriteInto("End of init");
+            Functions.WriteInto(filePath, "Start of init");
+            parameters = new TestArguments(configFilePath);
+            Driver.Initiliaze(driverDirectory, downloadDirectory, parameters.Browser);
+            Functions.WriteInto(filePath, "End of init");
 
         }
 
         [TestMethod]
         public void GoogleSearchMethod()
         {
-            string URL = parameters.url;
+            string URL = parameters.Url;
             string subject = "";
-            OpenUrl.GoTo(URL);
+            Url.GoTo(URL);
             //string test = "";
 
             string pretraga = GoogleSearch.SearchParameter("academy387");
@@ -50,13 +54,13 @@ namespace TestProject1Nejra
 
             Assert.AreEqual("ok", pretraga);
             Assert.IsFalse(subject.Contains("false"));
-            Functions.WriteInto("Test ended" + DateTime.Now.ToString("(dd_MMMM_hh_mm_ss_tt)"));
+            Functions.WriteInto(filePath, "Test ended" + DateTime.Now.ToString("(dd_MMMM_hh_mm_ss_tt)"));
 
-            Functions.SendEmailAttachment(subject, body);
+            //Functions.SendEmailAttachment(subject, body);
            Assert.IsTrue(subject.Contains("passed"));
             Assert.IsFalse(subject.Contains("failed"));
 
-            Functions.WriteInto("Test ended" + DateTime.Now.ToString());
+            Functions.WriteInto(filePath, "Test ended" + DateTime.Now.ToString());
 
         }
         [TestCleanup]

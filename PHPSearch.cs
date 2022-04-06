@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using QATest.Setup;
 using System;
 using System.Collections.Generic;
 using System.Linq;

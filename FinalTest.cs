@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QATest.Setup;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,25 +16,29 @@ namespace TestProject1Nejra
         private object openUrl;
         private TestArguments parameters;
         private object subject;
+        private string filePath = @"C:\Test Configuration\LogFile.txt";
+
 
         [TestInitialize]
 
         public void Init()
         {
+            var downloadDirectory = @"C:\Files";
+            var driverDirectory = @"C:\Drivers\";
+            var configFilePath = @"C://Test Configuration\config.xml";
 
-            Functions.WriteInto("Start of init");
-            parameters = new TestArguments();
-            int a = int.Parse(parameters.browser);
-            Driver.Initiliaze(a);
-            Functions.WriteInto("End of init");
+            Functions.WriteInto(filePath, "Start of init");
+            parameters = new TestArguments(configFilePath);
+            Driver.Initiliaze(driverDirectory, downloadDirectory, parameters.Browser);
+            Functions.WriteInto(filePath, "End of init");
 
         }
         [TestMethod]
         public void PHPGoogleSearchMethod()
         {
-            string URL = parameters.url;
+            string URL = parameters.Url;
             string subject = "";
-            OpenUrl.GoTo(URL);
+            Url.GoTo(URL);
             //string test = "";
 
             string messagePHPTravel  = PHPSearch.GooglePHP("PHPtravel");
